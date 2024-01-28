@@ -71,11 +71,13 @@
 
     <SeekBar
         android:id="@+id/seekBarPlayingMusic"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="36dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/playBtnPlayingMusic" />
 
     <ImageButton
