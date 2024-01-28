@@ -12,12 +12,16 @@
 
     <color name="dusk_yellow">#C67000</color>
     <color name="dusk_white">#DBDBDB</color>
+    <color name="dusk_light_gray">#6E6E6E</color>
     <color name="dusk_light_yellow">#F0A500</color>
     <color name="dusk_very_light_yellow">#fff8cd</color>
-    <color name="dusk_gray">#3A3535</color>
+    <color name="dusk_gray">#353535</color>
     <color name="dusk_black">#292929</color>
     <color name="dusk_dark_black">#1B1A17</color>
     <color name="dusk_hint">#717171</color>
     <color name="dusk_orange">#E45826</color>
+    <color name="dusk_very_light_red">#FFB4B4</color>
+    <color name="dusk_light_red">#FF6464</color>
+    <color name="dusk_red">#FF3232</color>
     <color name="dusk_blue">#18306b</color>
 </resources>
