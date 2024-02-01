@@ -71,11 +71,13 @@
 
     <SeekBar
         android:id="@+id/seekBarPlayingMusic"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="36dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/playBtnPlayingMusic" />
 
     <ImageButton
@@ -172,9 +174,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_music_24dp" />
+        app:srcCompat="@drawable/logo" />
 
-    <TextClock
+    <TextView
         android:id="@+id/endTimePlayingMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -185,7 +187,7 @@
         android:textColor="@color/dusk_very_light_yellow"
         android:textStyle="normal"/>
 
-    <TextClock
+    <TextView
         android:id="@+id/startTimePlayingMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
