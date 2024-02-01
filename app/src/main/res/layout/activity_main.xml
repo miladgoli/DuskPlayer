@@ -31,10 +31,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlistRecyclerMain"
         android:layout_width="0dp"
-        android:layout_height="148dp"
+        android:layout_height="wrap_content"
         android:background="@color/dusk_dark_black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/musicRecyclerMain"
         app:layout_constraintTop_toBottomOf="@id/appBarFrameMain" />
 
     <androidx.recyclerview.widget.RecyclerView
