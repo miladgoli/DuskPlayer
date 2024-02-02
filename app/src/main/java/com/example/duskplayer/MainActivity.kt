@@ -10,6 +10,9 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.duskplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     override fun onStart() {
@@ -21,16 +24,25 @@ class MainActivity : AppCompatActivity() {
     private val STORAGE_PERMISSION_REQUEST_CODE = 1
     private lateinit var dialogs: DuskDialogs
     private var musicList = ArrayList<Song>()
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var mainMusicsAdapter: MainMusicsRecAdapter
+    //private lateinit var mainPlayListsAdapter:
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //initialize classes
         dialogs = DuskDialogs()
+        mainMusicsAdapter = MainMusicsRecAdapter()
+
+        initializeRecycleViews()
 
         loadMusics()
     }
+
     private fun checkStoragePermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -150,7 +162,14 @@ class MainActivity : AppCompatActivity() {
 
         cursor?.close()
 
-        Toast.makeText(this, musicList.size.toString(), Toast.LENGTH_SHORT).show()
+        mainMusicsAdapter.setMusicsList(musicList)
+        binding.tvMusicsSize.text = musicList.size.toString()
     }
 
+    private fun initializeRecycleViews() {
+
+        binding.musicRecyclerMain.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.musicRecyclerMain.adapter = mainMusicsAdapter
+    }
 }
