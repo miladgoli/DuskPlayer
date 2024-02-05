@@ -8,16 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TestFtagment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(container.getContext()).inflate(R.layout.playing_music,container,false);
+        return LayoutInflater.from(container.getContext()).inflate(R.layout.playing_music_fragment,container,false);
     }
 
     @Override
