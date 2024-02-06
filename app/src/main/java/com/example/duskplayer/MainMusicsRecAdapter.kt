@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class MainMusicsRecAdapter : RecyclerView.Adapter<MainMusicsRecAdapter.MainMusicsRecViewHolder>() {
+class MainMusicsRecAdapter(private val callBack: MainAdapterCallBack) :
+    RecyclerView.Adapter<MainMusicsRecAdapter.MainMusicsRecViewHolder>() {
 
     private var musics = ArrayList<Song>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainMusicsRecViewHolder {
@@ -34,6 +35,10 @@ class MainMusicsRecAdapter : RecyclerView.Adapter<MainMusicsRecAdapter.MainMusic
         fun onBind(song: Song) {
             tvTitle.text = song.title
             tvSinger.text = song.artist
+
+            itemView.setOnClickListener {
+                callBack.onItemClicked(song)
+            }
         }
     }
 
@@ -41,5 +46,9 @@ class MainMusicsRecAdapter : RecyclerView.Adapter<MainMusicsRecAdapter.MainMusic
         musics.clear()
         musics = listMusic
         notifyDataSetChanged()
+    }
+
+    interface MainAdapterCallBack {
+        fun onItemClicked(song: Song)
     }
 }

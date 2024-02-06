@@ -5,13 +5,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import com.example.duskplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,11 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private val STORAGE_PERMISSION_REQUEST_CODE = 1
     private lateinit var dialogs: DuskDialogs
-    private var musicList = ArrayList<Song>()
     private lateinit var binding: ActivityMainBinding
-
-    private lateinit var mainMusicsAdapter: MainMusicsRecAdapter
-    //private lateinit var mainPlayListsAdapter:
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,29 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         //initialize classes
         dialogs = DuskDialogs()
-        mainMusicsAdapter = MainMusicsRecAdapter()
 
-        initializeRecycleViews()
+        //val navHostFragment = supportFragmentManager.findFragmentById(
+        //    R.id.mainFragment
+        //) as NavHostFragment
+        //navController = navHostFragment.navController
 
-        loadMusics()
-    }
-
-    private fun checkStoragePermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // send request permission
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                STORAGE_PERMISSION_REQUEST_CODE
-            )
-        } else {
-            // permission generated
-
-        }
     }
 
     private fun showWhyNeedPermissionDialog() {
@@ -93,6 +73,24 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    private fun checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // send request permission
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                STORAGE_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            // permission generated
+
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -122,54 +120,5 @@ class MainActivity : AppCompatActivity() {
                 return
             }
         }
-    }
-
-    private fun loadMusics() {
-
-        val contentResolver = contentResolver
-        val songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        val sortOrder = MediaStore.Audio.Media.TITLE + " ASC"
-        val cursor = contentResolver.query(
-            songUri,
-            null,
-            null,
-            null,
-            sortOrder
-        )
-
-        if (cursor != null && cursor.moveToFirst()) {
-            val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-            val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
-            val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
-            val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
-
-            do {
-                val id = cursor.getLong(idColumn)
-                val title = cursor.getString(titleColumn)
-                val duration = cursor.getLong(durationColumn)
-                val artist = cursor.getString(artistColumn)
-
-                musicList.add(
-                    Song(
-                        id,
-                        title,
-                        duration,
-                        artist
-                    )
-                )
-            } while (cursor.moveToNext())
-        }
-
-        cursor?.close()
-
-        mainMusicsAdapter.setMusicsList(musicList)
-        binding.tvMusicsSize.text = musicList.size.toString()
-    }
-
-    private fun initializeRecycleViews() {
-
-        binding.musicRecyclerMain.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        binding.musicRecyclerMain.adapter = mainMusicsAdapter
     }
 }
