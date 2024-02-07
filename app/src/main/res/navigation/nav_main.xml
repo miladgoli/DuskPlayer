@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        tools:layout="@layout/fragment_main"
         android:name="com.example.duskplayer.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_playingMusicFragment"
             app:destination="@id/playingMusicFragment" />
     </fragment>
     <fragment
         android:id="@+id/playingMusicFragment"
-        tools:layout="@layout/fragment_playing_music"
         android:name="com.example.duskplayer.PlayingMusicFragment"
-        android:label="PlayingMusicFragment" >
+        android:label="PlayingMusicFragment"
+        tools:layout="@layout/fragment_playing_music">
         <action
             android:id="@+id/action_playingMusicFragment_to_mainFragment"
             app:destination="@id/mainFragment" />

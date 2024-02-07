@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private val STORAGE_PERMISSION_REQUEST_CODE = 1
     private lateinit var dialogs: DuskDialogs
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,22 +33,18 @@ class MainActivity : AppCompatActivity() {
         //initialize classes
         dialogs = DuskDialogs()
 
-        //val navHostFragment = supportFragmentManager.findFragmentById(
-        //    R.id.mainFragment
-        //) as NavHostFragment
-        //navController = navHostFragment.navController
-
     }
 
+    //This dialog is used when I want to tell the user why this app needs permission.
     private fun showWhyNeedPermissionDialog() {
         dialogs.whyNeedPermissionDialog(this,
             {
-                //yes Button
+                //pressed Yes Button
                 //send permission request
                 checkStoragePermission()
 
             }, {
-                //no Button
+                //pressed No Button
                 //Exit App
                 finish()
                 Toast.makeText(this, "Sorry !\ni don't have permission", Toast.LENGTH_SHORT).show()
@@ -57,22 +52,24 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    //This dialog is used when we want to guide the user to the settings to grant access.
     private fun showSettingsDialog() {
         dialogs.goSettingsForPermissionDialog(this,
             {
-                //Settings Button
-                //go to user settings for get permission
+                //pressed Settings Button
+                //go to settings for get permission
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", packageName, null)
                 intent.data = uri
                 startActivityForResult(intent, STORAGE_PERMISSION_REQUEST_CODE)
 
             }, {
-                //Exit Button
+                //pressed Exit Button
                 finish()
             })
     }
 
+    //get permission
     private fun checkStoragePermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -87,10 +84,12 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
             // permission generated
+            Toast.makeText(this, "Thank You (;", Toast.LENGTH_SHORT).show()
 
         }
     }
 
+    //check permission runtime
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -99,12 +98,8 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             STORAGE_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission generated
-
-
-                } else {
+                if (grantResults.isEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    //if permission not generated
                     if (ActivityCompat.shouldShowRequestPermissionRationale(
                             this,
                             android.Manifest.permission.READ_EXTERNAL_STORAGE

@@ -8,7 +8,13 @@ import android.view.View
 import android.view.Window
 import com.google.android.material.button.MaterialButton
 
+/*
+create custom dialogs
+ */
+
 class DuskDialogs {
+
+    //This dialog is used when I want to tell the user why this app needs permission.
     fun whyNeedPermissionDialog(
         context: Context,
         yesListener: View.OnClickListener,
@@ -37,6 +43,7 @@ class DuskDialogs {
         dialog.show()
     }
 
+    //This dialog is used when we want to guide the user to the settings to grant access.
     fun goSettingsForPermissionDialog(
         context: Context,
         settingsListener: View.OnClickListener,
@@ -50,14 +57,14 @@ class DuskDialogs {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val settingsBtn = dialog.findViewById(R.id.btnGoSettingPermissionDialog) as MaterialButton
-        val ExitBtn = dialog.findViewById(R.id.btnExitSettingPermissionDialog) as MaterialButton
+        val exitBtn = dialog.findViewById(R.id.btnExitSettingPermissionDialog) as MaterialButton
 
         settingsBtn.setOnClickListener {
             settingsListener.onClick(it)
             dialog.dismiss()
         }
 
-        ExitBtn.setOnClickListener {
+        exitBtn.setOnClickListener {
             exitListener.onClick(it)
             dialog.dismiss()
         }

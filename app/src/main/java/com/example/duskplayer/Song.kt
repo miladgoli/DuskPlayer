@@ -1,6 +1,5 @@
 package com.example.duskplayer
 
-import android.graphics.Bitmap
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -10,5 +9,7 @@ data class Song(
     var title: String,
     var duration: Long,
     var artist: String,
+    var path: String,
+    var albumArt: String,
     var isFavorite: Boolean
 ) : Parcelable

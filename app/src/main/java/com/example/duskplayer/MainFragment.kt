@@ -1,5 +1,7 @@
 package com.example.duskplayer
 
+import android.content.ContentUris
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -15,12 +17,9 @@ import com.example.duskplayer.databinding.FragmentMainBinding
 class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
 
     lateinit var binding: FragmentMainBinding
-
     private var musicList = ArrayList<Song>()
-
     private lateinit var mainMusicsAdapter: MainMusicsRecAdapter
 
-    //private lateinit var mainPlayListsAdapter:
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,25 +34,28 @@ class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
 
         //initialize classes
         mainMusicsAdapter = MainMusicsRecAdapter(this)
-        loadMusics()
 
+        loadMusics()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initializeRecycleViews()
+
+        //show user musics size
         binding.tvMusicsSize.text = musicList.size.toString()
 
     }
 
     private fun initializeRecycleViews() {
-
+        //main recycler view for show user musics
         binding.musicRecyclerMain.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.musicRecyclerMain.adapter = mainMusicsAdapter
     }
 
+    //get all music from user phone
     private fun loadMusics() {
 
         val contentResolver = requireActivity().contentResolver
@@ -72,12 +74,21 @@ class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
             val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
             val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
             val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
+            val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+            val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
 
+            //Here's a loop to read and add all the songs to a music arraylist.
             do {
                 val id = cursor.getLong(idColumn)
                 val title = cursor.getString(titleColumn)
                 val duration = cursor.getLong(durationColumn)
                 val artist = cursor.getString(artistColumn)
+                val path = cursor.getString(pathColumn)
+                val albumId = cursor.getLong(albumIdColumn)
+                val albumArtUri = ContentUris.withAppendedId(
+                    Uri.parse("content://media/external/audio/albumart"),
+                    albumId
+                )
 
                 musicList.add(
                     Song(
@@ -85,6 +96,8 @@ class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
                         title,
                         duration,
                         artist,
+                        path,
+                        albumArtUri.toString(),
                         false
                     )
                 )
@@ -93,14 +106,17 @@ class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
 
         cursor?.close()
 
+        //set main recycler view music list adapter.
         mainMusicsAdapter.setMusicsList(musicList)
     }
 
-    //when we clicked on music
-    override fun onItemClicked(song: Song) {
+    //when user clicked on music (impl main adapter interface).
+    override fun onItemClicked(song: Song, position: Int) {
+        //go to playing fragment for play clicked music with animation.
         val navController = findNavController()
         val bundle = Bundle()
-        bundle.putParcelable("song", song)
+        bundle.putSerializable("list", musicList)
+        bundle.putInt("position", position)
         val animation = NavOptions.Builder()
             .setEnterAnim(R.anim.slide_left)
             .setExitAnim(R.anim.slide_right)

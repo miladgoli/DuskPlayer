@@ -146,9 +146,9 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/singerNamePlayingMusic"
-        app:layout_constraintLeft_toRightOf="@id/coverPlayingMusic"
-        app:layout_constraintRight_toLeftOf="@id/coverPlayingMusic"
-        app:layout_constraintTop_toBottomOf="@id/coverPlayingMusic"
+        app:layout_constraintLeft_toRightOf="@id/imageCardView"
+        app:layout_constraintRight_toLeftOf="@id/imageCardView"
+        app:layout_constraintTop_toBottomOf="@id/imageCardView"
         tools:text="Music Name" />
 
     <TextView
@@ -158,27 +158,39 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/dusk_very_light_yellow"
         android:textStyle="normal"
-        app:layout_constraintLeft_toRightOf="@id/coverPlayingMusic"
-        app:layout_constraintRight_toLeftOf="@id/coverPlayingMusic"
+        app:layout_constraintLeft_toRightOf="@id/imageCardView"
+        app:layout_constraintRight_toLeftOf="@id/imageCardView"
         app:layout_constraintTop_toBottomOf="@id/namePlayingMusic"
         tools:text="Singer Name" />
 
 
-    <ImageView
-        android:id="@+id/coverPlayingMusic"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/background_cover_music"
-        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:layout_margin="36dp"
+        app:cardBackgroundColor="@color/dusk_black"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="6dp"
         app:layout_constraintBottom_toTopOf="@id/seekBarPlayingMusic"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/coverPlayingMusic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@id/seekBarPlayingMusic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/endTimePlayingMusic"
