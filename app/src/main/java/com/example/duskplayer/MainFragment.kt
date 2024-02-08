@@ -18,6 +18,7 @@ class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
 
     lateinit var binding: FragmentMainBinding
     private var musicList = ArrayList<Song>()
+    private var shuffleList = ArrayList<Song>()
     private lateinit var mainMusicsAdapter: MainMusicsRecAdapter
 
     override fun onCreateView(
@@ -116,6 +117,9 @@ class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
         val navController = findNavController()
         val bundle = Bundle()
         bundle.putSerializable("list", musicList)
+        shuffleList.addAll(musicList)
+        shuffleList.shuffle()
+        bundle.putSerializable("shuffle_list", shuffleList)
         bundle.putInt("position", position)
         val animation = NavOptions.Builder()
             .setEnterAnim(R.anim.slide_left)

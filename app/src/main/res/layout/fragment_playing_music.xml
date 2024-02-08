@@ -107,7 +107,7 @@
         app:layout_constraintLeft_toRightOf="@id/nextBtnPlayingMusic"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/nextBtnPlayingMusic"
-        app:srcCompat="@drawable/ic_shuffle_24dp" />
+        app:srcCompat="@drawable/ic_not_shuffle_24dp" />
 
     <ImageButton
         android:id="@+id/favoriteBtnPlayingMusic"

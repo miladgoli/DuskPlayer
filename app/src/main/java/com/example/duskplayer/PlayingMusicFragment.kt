@@ -19,6 +19,8 @@ class PlayingMusicFragment : Fragment() {
     private lateinit var binding: FragmentPlayingMusicBinding
     private lateinit var song: Song
     private lateinit var songsList: ArrayList<Song>
+    private lateinit var originalList: ArrayList<Song>
+    private lateinit var shuffleList: ArrayList<Song>
     private var positionNowPlaying: Int = -1
     private var repeatMode: Int = Tools.REPEAT_NOT_MUSIC
     private var isPlaying: Boolean = true
@@ -43,10 +45,14 @@ class PlayingMusicFragment : Fragment() {
         onButtonsClicked()
 
     }
+
     private fun setupMusic() {
         //set variables
         positionNowPlaying = arguments?.getInt("position")!!
-        songsList = (arguments?.getSerializable("list") as ArrayList<Song>?)!!
+        shuffleList = (arguments?.getSerializable("shuffle_list") as ArrayList<Song>?)!!
+        originalList = (arguments?.getSerializable("list") as ArrayList<Song>?)!!
+        songsList=ArrayList()
+        songsList.addAll(originalList)
         song = songsList.get(positionNowPlaying)
         //play music
         mediaPlayer.reset()
@@ -64,6 +70,14 @@ class PlayingMusicFragment : Fragment() {
             timer.cancel()
         }
         timer = Timer()
+        //check shuffle mode
+        if (shuffleMode) {
+            songsList = ArrayList()
+            songsList.addAll(shuffleList)
+        } else {
+            songsList = ArrayList()
+            songsList.addAll(originalList)
+        }
         //set play button icon
         if (!isPlaying) {
             binding.playBtnPlayingMusic.setImageResource(R.drawable.ic_play_24dp)
@@ -105,6 +119,7 @@ class PlayingMusicFragment : Fragment() {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     requireActivity().runOnUiThread {
+
                         binding.seekBarPlayingMusic.progress = mediaPlayer.currentPosition
                         binding.startTimePlayingMusic.text =
                             formatDuration(mediaPlayer.currentPosition.toLong())
@@ -185,19 +200,25 @@ class PlayingMusicFragment : Fragment() {
             if (shuffleMode) {
                 binding.shuffleBtnPlayingMusic.setImageResource(R.drawable.ic_not_shuffle_24dp)
                 shuffleMode = false
+                //update position playing music in original list.
+                positionNowPlaying = originalList.indexOf(songsList[positionNowPlaying])
+                songsList = ArrayList()
+                songsList.addAll(originalList)
             } else {
                 binding.shuffleBtnPlayingMusic.setImageResource(R.drawable.ic_shuffle_24dp)
                 shuffleMode = true
+                songsList = ArrayList()
+                songsList.addAll(shuffleList)
             }
         }
     }
 
     //destroy mediaplayer and cancel timer when fragment closed
     override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
         mediaPlayer.stop()
         mediaPlayer.release()
-        timer.cancel()
-        super.onDestroy()
     }
 
     //if finished music worked this function
