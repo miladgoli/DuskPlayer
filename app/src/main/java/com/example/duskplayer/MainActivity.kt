@@ -1,18 +1,20 @@
 package com.example.duskplayer
 
+import android.content.ContentUris
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.example.duskplayer.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     override fun onStart() {
@@ -24,6 +26,9 @@ class MainActivity : AppCompatActivity() {
     private val STORAGE_PERMISSION_REQUEST_CODE = 1
     private lateinit var dialogs: DuskDialogs
     private lateinit var binding: ActivityMainBinding
+    private var musicList = ArrayList<Song>()
+    private lateinit var viewModel: MusicListViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         //initialize classes
         dialogs = DuskDialogs()
-
+        viewModel = ViewModelProvider(this).get(MusicListViewModel::class.java)
     }
 
     //This dialog is used when I want to tell the user why this app needs permission.
@@ -84,8 +89,13 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
             // permission generated
-            Toast.makeText(this, "Thank You (;", Toast.LENGTH_SHORT).show()
-
+            //load music and go to fragments
+            loadMusics()
+            val fragment: MainFragment = MainFragment()
+            val fragmentManager: FragmentManager = supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.mainFragment, fragment)
+                .commit()
         }
     }
 
@@ -98,11 +108,23 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             STORAGE_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    //if permission not generated
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //permission generated
+                    if (viewModel.getMusicList().isNotEmpty()) {
+                        //check need update list or no
+                    } else {
+                        //first running app and get music
+                        //load music and go to fragments
+                        loadMusics()
+                        val fragment: MainFragment = MainFragment()
+                        val fragmentManager: FragmentManager = supportFragmentManager
+                        fragmentManager.beginTransaction()
+                            .replace(R.id.mainFragment, fragment)
+                            .commit()
+                    }
+                } else {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE
+                            this, android.Manifest.permission.READ_EXTERNAL_STORAGE
                         )
                     ) {
                         // show why i need to get permission dialog
@@ -115,5 +137,58 @@ class MainActivity : AppCompatActivity() {
                 return
             }
         }
+    }
+
+    private fun loadMusics() {
+
+        musicList = ArrayList()
+        val contentResolver = this.contentResolver
+        val songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        val sortOrder = MediaStore.Audio.Media.TITLE + " ASC"
+        val cursor = contentResolver.query(
+            songUri,
+            null,
+            null,
+            null,
+            sortOrder
+        )
+
+        if (cursor != null && cursor.moveToFirst()) {
+            val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
+            val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
+            val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
+            val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
+            val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+            val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
+
+            //Here's a loop to read and add all the songs to a music arraylist.
+            do {
+                val id = cursor.getLong(idColumn)
+                val title = cursor.getString(titleColumn)
+                val duration = cursor.getLong(durationColumn)
+                val artist = cursor.getString(artistColumn)
+                val path = cursor.getString(pathColumn)
+                val albumId = cursor.getLong(albumIdColumn)
+                val albumArtUri = ContentUris.withAppendedId(
+                    Uri.parse("content://media/external/audio/albumart"),
+                    albumId
+                )
+
+                musicList.add(
+                    Song(
+                        id,
+                        title,
+                        duration,
+                        artist,
+                        path,
+                        albumArtUri.toString(),
+                        false
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+
+        cursor?.close()
+        viewModel.setMusicList(musicList)
     }
 }

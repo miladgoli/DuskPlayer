@@ -55,9 +55,9 @@ class MainMusicsRecAdapter(private val callBack: MainAdapterCallBack) :
     }
 
     //for get musics and set in adapter and show to recyclerview.
-    fun setMusicsList(listMusic: ArrayList<Song>) {
+    fun setMusicsList(listMusic: List<Song>) {
         musics.clear()
-        musics = listMusic
+        musics = listMusic as ArrayList<Song>
         notifyDataSetChanged()
     }
 

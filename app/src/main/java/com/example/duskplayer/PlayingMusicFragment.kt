@@ -49,8 +49,8 @@ class PlayingMusicFragment : Fragment() {
     private fun setupMusic() {
         //set variables
         positionNowPlaying = arguments?.getInt("position")!!
-        shuffleList = (arguments?.getSerializable("shuffle_list") as ArrayList<Song>?)!!
-        originalList = (arguments?.getSerializable("list") as ArrayList<Song>?)!!
+        shuffleList = (arguments?.getParcelableArrayList("shuffle_list")!!)
+        originalList = (arguments?.getParcelableArrayList("list"))!!
         songsList=ArrayList()
         songsList.addAll(originalList)
         song = songsList.get(positionNowPlaying)
@@ -150,7 +150,7 @@ class PlayingMusicFragment : Fragment() {
     private fun onButtonsClicked() {
         //btn back to main page
         binding.backBtnPlayingMusic.setOnClickListener {
-            findNavController().navigate(R.id.action_playingMusicFragment_to_mainFragment)
+            parentFragmentManager.popBackStack()
         }
         //btn is favorite
         binding.favoriteBtnPlayingMusic.setOnClickListener {
