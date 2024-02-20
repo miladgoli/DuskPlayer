@@ -97,18 +97,18 @@ class PlayingMusicFragment : Fragment() {
         binding.seekBarPlayingMusic.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-
+                binding.startTimePlayingMusic.text =
+                    formatDuration(progress.toLong())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 if (seekBar != null) {
                     //go to custom position and update views
                     mediaPlayer.seekTo(seekBar.progress)
-                    binding.startTimePlayingMusic.text =
-                        formatDuration(mediaPlayer.currentPosition.toLong())
                 }
 
             }
