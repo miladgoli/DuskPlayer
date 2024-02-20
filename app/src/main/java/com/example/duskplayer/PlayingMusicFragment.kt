@@ -214,14 +214,15 @@ class PlayingMusicFragment : Fragment() {
 
     //destroy mediaplayer and cancel timer when fragment closed
     override fun onDestroy() {
+        super.onDestroy()
         mediaPlayer.stop()
-        mediaPlayer.release()
         if (::timer.isInitialized) {
             timer.cancel()
         }
         timer = Timer()
-        super.onDestroy()
+        mediaPlayer.release()
     }
+
 
     //if finished music worked this function
     private fun checkFinishedMusic() {
