@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.duskplayer.MainFragment"
+        android:name="com.example.duskplayer.view.fragment.MainMusicFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/playingMusicFragment"
-        android:name="com.example.duskplayer.PlayingMusicFragment"
+        android:name="com.example.duskplayer.view.fragment.PlayingMusicFragment"
         android:label="PlayingMusicFragment"
         tools:layout="@layout/fragment_playing_music">
         <action

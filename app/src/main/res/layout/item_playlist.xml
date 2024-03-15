@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="140dp"
     android:layout_height="115dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="6dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="6dp"
@@ -20,24 +21,19 @@
 
     <TextView
         android:id="@+id/namePlaylistItemTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Favorite"
+        android:textAlignment="center"
+        android:maxLines="3"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Favorite" />
 
-    <ImageView
-        android:id="@+id/igPlaylistItem"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/namePlaylistItemTxt"
-        app:layout_constraintLeft_toRightOf="@id/namePlaylistItemTxt"
-        app:layout_constraintTop_toTopOf="@id/namePlaylistItemTxt"
-        app:srcCompat="@drawable/ic_favorite_on_24dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

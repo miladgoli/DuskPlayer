@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -43,6 +44,9 @@ android {
 }
 
 dependencies {
+    val room_version = "2.3.0"
+    val rxjava_version = "2.2.21"
+    val rxAndroid_version = "2.1.1"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -52,7 +56,24 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
+    //room
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-rxjava2:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+
+    //Rxjava and RxAndroid library
+    implementation("io.reactivex.rxjava2:rxandroid:$rxAndroid_version")
+    implementation("io.reactivex.rxjava2:rxjava:$rxjava_version")
+
+
+    implementation("androidx.fragment:fragment:1.6.2")
+    implementation("androidx.lifecycle:lifecycle-process:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-service:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    annotationProcessor("androidx.lifecycle:lifecycle-compiler:2.7.0")
 }
