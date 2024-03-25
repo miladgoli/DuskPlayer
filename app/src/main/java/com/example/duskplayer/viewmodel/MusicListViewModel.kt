@@ -1,6 +1,7 @@
-package com.example.duskplayer
+package com.example.duskplayer.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.duskplayer.model.Song
 
 class MusicListViewModel() : ViewModel() {
 

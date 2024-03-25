@@ -10,6 +10,7 @@
     android:background="@drawable/background_cover_playlist_btn"
     android:clickable="true"
     android:elevation="12dp"
+    android:layoutDirection="ltr"
     android:outlineSpotShadowColor="@color/dusk_very_light_yellow"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"

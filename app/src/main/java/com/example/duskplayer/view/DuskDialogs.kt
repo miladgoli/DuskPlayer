@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.view
 
 import android.app.Dialog
 import android.content.Context
@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.Window
+import com.example.duskplayer.R
 import com.google.android.material.button.MaterialButton
 
 /*

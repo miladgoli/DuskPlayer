@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.model
 
 object Tools {
     const val REPEAT_NOT_MUSIC = 1

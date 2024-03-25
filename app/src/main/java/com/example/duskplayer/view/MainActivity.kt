@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.view
 
 import android.content.ContentUris
 import android.content.Intent
@@ -13,7 +13,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import com.example.duskplayer.R
 import com.example.duskplayer.databinding.ActivityMainBinding
+import com.example.duskplayer.model.Song
+import com.example.duskplayer.view.fragment.MainFragment
+import com.example.duskplayer.viewmodel.MusicListViewModel
 
 
 class MainActivity : AppCompatActivity() {

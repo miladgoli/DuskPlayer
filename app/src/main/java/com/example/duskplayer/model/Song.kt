@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

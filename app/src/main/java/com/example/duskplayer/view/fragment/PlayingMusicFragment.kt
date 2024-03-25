@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.view.fragment
 
 import android.media.MediaPlayer
 import android.net.Uri
@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.duskplayer.R
 import com.example.duskplayer.databinding.FragmentPlayingMusicBinding
+import com.example.duskplayer.model.Song
+import com.example.duskplayer.model.Tools
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.TimeUnit

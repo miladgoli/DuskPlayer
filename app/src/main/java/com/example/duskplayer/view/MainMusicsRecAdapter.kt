@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.view
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.duskplayer.R
+import com.example.duskplayer.model.Song
 
 /*
 this is main recycler view adapter and view holder

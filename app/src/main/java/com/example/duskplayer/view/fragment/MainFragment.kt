@@ -1,4 +1,4 @@
-package com.example.duskplayer
+package com.example.duskplayer.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.duskplayer.R
 import com.example.duskplayer.databinding.FragmentMainBinding
+import com.example.duskplayer.model.Song
+import com.example.duskplayer.view.MainMusicsRecAdapter
+import com.example.duskplayer.viewmodel.MusicListViewModel
 
 
 class MainFragment : Fragment(), MainMusicsRecAdapter.MainAdapterCallBack {
