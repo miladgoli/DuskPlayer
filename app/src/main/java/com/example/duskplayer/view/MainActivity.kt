@@ -4,6 +4,7 @@ import android.content.ContentUris
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -80,22 +81,31 @@ class MainActivity : AppCompatActivity() {
 
     //get permission
     private fun checkStoragePermission() {
+
         if (ContextCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
+                android.Manifest.permission.READ_MEDIA_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             // send request permission
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                STORAGE_PERMISSION_REQUEST_CODE
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_MEDIA_AUDIO),
+                    STORAGE_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    STORAGE_PERMISSION_REQUEST_CODE
+                )
+            }
         } else {
             // permission generated
             //load music and go to fragments
             loadMusics()
-            val fragment: MainFragment = MainFragment()
+            val fragment = MainFragment()
             val fragmentManager: FragmentManager = supportFragmentManager
             fragmentManager.beginTransaction()
                 .replace(R.id.mainFragment, fragment)
@@ -158,15 +168,15 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (cursor != null && cursor.moveToFirst()) {
+            val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
             val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
             val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
             val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
             val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
-            val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
             val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
 
             //Here's a loop to read and add all the songs to a music arraylist.
-            do {
+            while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val title = cursor.getString(titleColumn)
                 val duration = cursor.getLong(durationColumn)
@@ -177,22 +187,29 @@ class MainActivity : AppCompatActivity() {
                     Uri.parse("content://media/external/audio/albumart"),
                     albumId
                 )
-
-                musicList.add(
-                    Song(
-                        id,
-                        title,
-                        duration,
-                        artist,
-                        path,
-                        albumArtUri.toString(),
-                        false
+                if (path.lowercase().endsWith(".mp3") ||
+                    path.lowercase().endsWith(".mp4") ||
+                    path.lowercase().endsWith(".mpeg")
+                ) {
+                    musicList.add(
+                        Song(
+                            id,
+                            title,
+                            duration,
+                            artist,
+                            path,
+                            albumArtUri.toString(),
+                            false
+                        )
                     )
-                )
-            } while (cursor.moveToNext())
+                }
+            }
         }
 
         cursor?.close()
-        viewModel.setMusicList(musicList)
+        if (musicList.size > 0) {
+            viewModel.setMusicList(musicList)
+        }
+
     }
 }

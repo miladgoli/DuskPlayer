@@ -121,7 +121,6 @@ class PlayingMusicFragment : Fragment() {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     requireActivity().runOnUiThread {
-
                         binding.seekBarPlayingMusic.progress = mediaPlayer.currentPosition
                         binding.startTimePlayingMusic.text =
                             formatDuration(mediaPlayer.currentPosition.toLong())
@@ -218,10 +217,14 @@ class PlayingMusicFragment : Fragment() {
     //destroy mediaplayer and cancel timer when fragment closed
     override fun onDestroy() {
         super.onDestroy()
-        timer.cancel()
         mediaPlayer.stop()
+        if (::timer.isInitialized) {
+            timer.cancel()
+        }
+        timer = Timer()
         mediaPlayer.release()
     }
+
 
     //if finished music worked this function
     private fun checkFinishedMusic() {
