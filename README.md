@@ -1,4 +1,4 @@
-# Dusk Player
+![photo_2024-03-26_21-29-04](https://github.com/miladgoli/DuskPlayer/assets/75157969/eff03278-532c-4ebb-95e1-eeb8a629aaf8)# Dusk Player
 
 **Dusk Player** is an application where you can browse and listen to your music.
 
@@ -19,8 +19,10 @@ To use this application, you simply need to download it from the app's release s
 
 ## Demo
 
-<img src="https://user-images.githubusercontent.com/75157969/179423079-1aa7c758-421e-43e0-b843-3c58887513ce.jpg" alt="NewsApp_screen_shot" width="200"/>  
-<img src="https://user-images.githubusercontent.com/75157969/179423124-f02e7f91-bab8-43c0-bb80-b8b2b582785c.jpg" alt="NewsApp_screen_shot" width="200"/> 
+<img src="![photo_2024-03-26_21-29-04](https://github.com/miladgoli/DuskPlayer/assets/75157969/1a2bdf3a-cdef-401e-a92a-a1c3258b66f0)
+" alt="DuskPlayer_screen_shot" width="200"/>  
+<img src="![photo_2024-03-26_21-28-36](https://github.com/miladgoli/DuskPlayer/assets/75157969/6b6eafa6-c837-438f-8d81-37e075679d4d)
+" alt="NewsApp_screen_shot" width="200"/> 
 
 
 
@@ -30,5 +32,5 @@ If you have any ideas or issues, don't hesitate to make contact via the Issues p
 
 ## Find this repository useful? ❤️
 
-Support it by joining **[stargazers]([https://github.com/miladgoli/NewsApp/stargazers](https://github.com/miladgoli/DuskPlayer/stargazers))** for this repository. ⭐
+Support it by joining **[stargazers](https://github.com/miladgoli/NewsApp/stargazers](https://github.com/miladgoli/DuskPlayer/stargazers))** for this repository. ⭐
 And **[follow](https://github.com/miladgoli)** me for my next creations! 🤩
