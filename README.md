@@ -17,8 +17,8 @@ To use this application, you simply need to download it from the app's release s
 
 ## Demo
 
-![Image Alt Text](![1](https://github.com/miladgoli/DuskPlayer/assets/75157969/3ae01a6d-1ae8-44eb-8299-0da755fa9df1))
-
+<img src="(https://github.com/miladgoli/DuskPlayer/assets/75157969/38a6ca17-b7aa-4431-a516-cf77d49c94bb)
+" alt="ShopApp_screen_shot" width="200"/> 
 
 ## Contribution
 
