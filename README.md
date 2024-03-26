@@ -17,7 +17,7 @@ To use this application, you simply need to download it from the app's release s
 
 ## Demo
 
-![Image](![1](https://github.com/miladgoli/DuskPlayer/assets/75157969/aa399f3e-7284-45a0-9fdf-fa9f339eefef))
+![Image Alt Text](![1](https://github.com/miladgoli/DuskPlayer/assets/75157969/3ae01a6d-1ae8-44eb-8299-0da755fa9df1))
 
 
 ## Contribution
