@@ -27,5 +27,5 @@ If you have any ideas or issues, don't hesitate to make contact via the Issues p
 
 ## Find this repository useful? ❤️
 
-Support it by joining **[stargazers](https://github.com/miladgoli/NewsApp/stargazers](https://github.com/miladgoli/DuskPlayer/stargazers))** for this repository. ⭐
+Support it by joining **[stargazers](https://github.com/miladgoli/DuskPlayer/stargazers)** for this repository. ⭐
 And **[follow](https://github.com/miladgoli)** me for my next creations! 🤩
