@@ -17,7 +17,8 @@ To use this application, you simply need to download it from the app's release s
 
 ## Demo
 
-<img src="![1](https://github.com/miladgoli/DuskPlayer/assets/75157969/28e10123-d413-4248-9758-b034afa0a2e6)" alt="DuskPlayer_screen_shot" width="200"/>  
+![Image](![1](https://github.com/miladgoli/DuskPlayer/assets/75157969/aa399f3e-7284-45a0-9fdf-fa9f339eefef)
+)
 <img src="![photo_2024-03-26_21-28-36](https://github.com/miladgoli/DuskPlayer/assets/75157969/6b6eafa6-c837-438f-8d81-37e075679d4d)
 " alt="NewsApp_screen_shot" width="200"/> 
 
