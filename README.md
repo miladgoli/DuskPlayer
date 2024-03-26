@@ -1,5 +1,3 @@
-![photo_2024-03-26_21-29-04](https://github.com/miladgoli/DuskPlayer/assets/75157969/eff03278-532c-4ebb-95e1-eeb8a629aaf8)# Dusk Player
-
 **Dusk Player** is an application where you can browse and listen to your music.
 
 ## Overview
